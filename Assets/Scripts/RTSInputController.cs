@@ -13,6 +13,9 @@ public class RTSInputController : MonoBehaviour
     public static event Action OnPauseInput;
     public static event Action OnControlInput;
     public static event Action OnControlInputCanceled;
+    public static event Action OnSpeedInput;
+    public static event Action OnSpeedInputCanceled;
+    public static event Action<Vector2> OnMoveInput;
 
     [SerializeField] private InputActionAsset _inputActionAsset;
     [SerializeField] private string _mapRTSName;
@@ -20,11 +23,15 @@ public class RTSInputController : MonoBehaviour
     [SerializeField] private string _actRTSName;
     [SerializeField] private string _pauseName;
     [SerializeField] private string _controlName;
+    [SerializeField] private string _speedName;
+    [SerializeField] private string _moveName;
 
     InputAction _chooseAction;
     InputAction _actAction;
     InputAction _pauseAction;
     InputAction _controlAction;
+    InputAction _speedAction;
+    InputAction _moveAction;
 
     private InputActionMap _RTSActionMap;
 
@@ -36,13 +43,44 @@ public class RTSInputController : MonoBehaviour
         _actAction = _RTSActionMap[_actRTSName];
         _pauseAction = _RTSActionMap[_pauseName];
         _controlAction = _RTSActionMap[_controlName];
+        _speedAction = _RTSActionMap[_speedName];
+        _moveAction = _RTSActionMap[_moveName];
 
         _chooseAction.performed += ChoosePerformedHandler;
         _chooseAction.canceled += ChooseCanceledHandler;
+
         _actAction.performed += ActPerformedHandler;
+
         _pauseAction.performed += PausePerformedHandler;
+
         _controlAction.performed += ControlPerformedHandler;
         _controlAction.canceled += ControlCanceledHandler;
+
+        _speedAction.performed += SpeedPerformedHandler;
+        _speedAction.canceled += SpeedCanceledHandler;
+
+        _moveAction.performed += MovePerformedHandler;
+        _moveAction.canceled += MoveCanceledHandler;
+    }
+
+    private void MoveCanceledHandler(InputAction.CallbackContext context)
+    {
+        OnMoveInput?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    private void MovePerformedHandler(InputAction.CallbackContext context)
+    {
+        OnMoveInput?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    private void SpeedCanceledHandler(InputAction.CallbackContext context)
+    {
+        OnSpeedInputCanceled?.Invoke();
+    }
+
+    private void SpeedPerformedHandler(InputAction.CallbackContext context)
+    {
+        OnSpeedInput?.Invoke();
     }
 
     private void ChooseCanceledHandler(InputAction.CallbackContext context)
