@@ -40,6 +40,8 @@ public class RTSCameraController : MonoBehaviour
     Vector3 _moveDirection;
     bool _speeding = false;
 
+    ConsoleController _consoleController;
+
     CursorArrow currentCursor = CursorArrow.DEFAULT;
 
     public int MoveCancelHandler { get; private set; }
@@ -64,6 +66,8 @@ public class RTSCameraController : MonoBehaviour
         RTSInputController.OnMoveInput += MoveHandler;
         RTSInputController.OnSpeedInput += SpeedHandler;
         RTSInputController.OnSpeedInputCanceled += SpeedCancelHandler;
+
+        _consoleController = ConsoleController._instance;
     }
 
     private void SpeedCancelHandler()
@@ -121,7 +125,7 @@ public class RTSCameraController : MonoBehaviour
         }
 
         // Edge Scrolling
-        if (moveWithEdgeScrolling)
+        if (moveWithEdgeScrolling && !_consoleController._isInConsole)
         {
 
             // Move Right

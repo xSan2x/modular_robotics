@@ -55,7 +55,6 @@ public class UnitSelectionManager : MonoBehaviour
         Debug.Log(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, unitLayerMask));
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit,Mathf.Infinity,unitLayerMask))
         {
-            Debug.Log("Hit: " + hit.transform.name);
             if (hit.transform.parent == null) return;
             if (hit.transform.parent.TryGetComponent<Unit>(out Unit unit))
             {
@@ -82,7 +81,6 @@ public class UnitSelectionManager : MonoBehaviour
     {
         if (unitGO.TryGetComponent<UnitMovement>(out UnitMovement unitMovement))
         {
-            Debug.Log("UnitMovement found to "+mover+" movement");
             unitMovement.enabled = mover;
         }
         if (unitGO.TryGetComponent<Unit>(out Unit unit))

@@ -14,6 +14,7 @@ public class RTSInputController : MonoBehaviour
     public static event Action OnControlInput;
     public static event Action OnControlInputCanceled;
     public static event Action OnSpeedInput;
+    public static event Action OnConsoleInput;
     public static event Action OnSpeedInputCanceled;
     public static event Action<Vector2> OnMoveInput;
 
@@ -25,6 +26,7 @@ public class RTSInputController : MonoBehaviour
     [SerializeField] private string _controlName;
     [SerializeField] private string _speedName;
     [SerializeField] private string _moveName;
+    [SerializeField] private string _consoleName;
 
     InputAction _chooseAction;
     InputAction _actAction;
@@ -32,6 +34,7 @@ public class RTSInputController : MonoBehaviour
     InputAction _controlAction;
     InputAction _speedAction;
     InputAction _moveAction;
+    InputAction _consoleAction;
 
     private InputActionMap _RTSActionMap;
 
@@ -45,6 +48,7 @@ public class RTSInputController : MonoBehaviour
         _controlAction = _RTSActionMap[_controlName];
         _speedAction = _RTSActionMap[_speedName];
         _moveAction = _RTSActionMap[_moveName];
+        _consoleAction = _RTSActionMap[_consoleName];
 
         _chooseAction.performed += ChoosePerformedHandler;
         _chooseAction.canceled += ChooseCanceledHandler;
@@ -61,6 +65,13 @@ public class RTSInputController : MonoBehaviour
 
         _moveAction.performed += MovePerformedHandler;
         _moveAction.canceled += MoveCanceledHandler;
+
+        _consoleAction.performed += ConsolePerformedHandler;
+    }
+
+    private void ConsolePerformedHandler(InputAction.CallbackContext context)
+    {
+        OnConsoleInput?.Invoke();
     }
 
     private void MoveCanceledHandler(InputAction.CallbackContext context)
