@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e381c6123a31c2d4aa547c16377ab0cd, type: 3}
+  m_Name: Trio_BM (3)
+  m_EditorClassIdentifier: 
+  _type: 1
+  _name: "\u0422\u0440\u0456\u043E"
+  _armor: 70
+  _weight: 110
+  _titanCost: 20
+  _batteryCost: 0
+  _plasmCost: 0
+  _microchipCost: 0
+  _weaponSlots: 3
+  _haveLogicSlot: 0
+  _haveAdditionalSlot: 0
